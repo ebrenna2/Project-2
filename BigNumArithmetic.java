@@ -23,6 +23,7 @@ public class BigNumArithmetic {
                                 LList tempB = (LList) stack.pop();
                                 LList tempA = (LList) stack.pop();
                                 LList added = add(tempA, tempB);
+
                                 stack.push(added);
                                 i++;
                             }
@@ -78,7 +79,7 @@ public class BigNumArithmetic {
                 result.append(ch - '0');
             }
         }
-        return removeLeadingZerosFromLList(result);
+        return result;
     }
 
 
@@ -94,66 +95,53 @@ public class BigNumArithmetic {
     }
 
     public static LList add(LList a, LList b) {
-        LList result = new LList();
+        LList sumList = new LList();
         int carry = 0;
 
-        LList tempA = copyLList(a);
-        LList tempB = copyLList(b);
 
-        tempA.moveToStart();
-        tempB.moveToStart();
+        if (a.length() > b.length()) {
+            int count = a.length() - b.length();
+            for(int i = 0; i < count; i++){
+                b.append(0);
+            }
+        }
+        if (b.length() > a.length()){
+            int count = b.length() - a.length();
+            for(int i = 0; i < count; i++){
+                a.append(0);
+            }
+        }
 
-        while(tempA.currPos() < tempA.length() || tempB.currPos() < tempB.length()) {
-            int valA = tempA.currPos() < tempA.length() ? (int) tempA.getValue() : 0;
-            int valB = tempB.currPos() < tempB.length() ? (int) tempB.getValue() : 0;
 
-            int sum = valA + valB + carry;
+        a.moveToStart();
+        b.moveToStart();
+
+
+        while(a.currPos() < a.length()) {
+
+            int sum = (int) a.getValue() + (int) b.getValue() + carry;
+
             carry = sum / 10;
+
             sum = sum % 10;
-            result.append(sum);
 
-            if (tempA.currPos() < tempA.length()) tempA.next();
-            if (tempB.currPos() < tempB.length()) tempB.next();
-        }
-        if (carry > 0) {
-            result.append(carry);
+
+            sumList.append(sum);
+
+
+            a.next();
+            b.next();
         }
 
-        return removeLeadingZerosFromLList(result);
+        if (carry > 0){
+            sumList.append(carry);
+        }
+
+        return sumList;
     }
 
     public static boolean lineOperator(String s) {
         return s != null && s.contains("+");
-    }
-
-    public static LList copyLList(LList original) {
-        LList copy = new LList();
-        original.moveToStart();
-        while(original.currPos() < original.length()) {
-            copy.append(original.getValue());
-            original.next();
-        }
-        return copy;
-    }
-
-    public static LList removeLeadingZerosFromLList(LList l) {
-        LList result = new LList();
-        boolean nonZeroFound = false;
-        l.moveToStart();
-        while (l.currPos() < l.length()) {
-            int value = (int) l.getValue();
-            if (value != 0 || nonZeroFound) {
-                result.append(value);
-                nonZeroFound = true;
-            }
-            l.next();
-        }
-
-        if (result.length() == 0) {
-            result.append(0);
-        }
-
-        return result;
     }
 
 }
