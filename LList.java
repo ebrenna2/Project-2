@@ -7,8 +7,6 @@ class LList implements List {
     private Link curr;         // Access to current element
     private int listSize;      // Size of list
 
-    // Constructors
-    LList(int size) { this(); }     // Constructor -- Ignore size
     LList() { clear(); }
 
     // Remove all elements
@@ -34,19 +32,6 @@ class LList implements List {
         tail = tail.next();
         listSize++;
         return true;
-    }
-
-    // Remove and return current element
-    public Object remove () throws NoSuchElementException {
-        if (curr == tail) // Nothing to remove
-            throw new NoSuchElementException("remove() in LList has current of " + curr + " and size of "
-                    + listSize + " that is not a a valid element");
-        Object it = curr.element();             // Remember value
-        curr.setElement(curr.next().element()); // Pull forward the next element
-        if (curr.next() == tail) tail = curr;   // Removed last, move tail
-        curr.setNext(curr.next().next());       // Point around unneeded link
-        listSize--;                             // Decrement element count
-        return it;                              // Return value
     }
 
     public void moveToStart() { curr = head.next(); } // Set curr at list start
@@ -76,14 +61,6 @@ class LList implements List {
         return i;
     }
 
-    // Move down list to "pos" position
-    public boolean moveToPos(int pos) {
-        if ((pos < 0) || (pos > listSize)) return false;
-        curr = head.next();
-        for(int i=0; i<pos; i++) curr = curr.next();
-        return true;
-    }
-
     // Return true if current position is at end of the list
     public boolean isAtEnd() { return curr == tail; }
 
@@ -94,7 +71,4 @@ class LList implements List {
                     + listSize + " that is not a a valid element");
         return curr.element();
     }
-
-    // Check if the list is empty
-    public boolean isEmpty() { return listSize == 0; }
 }
