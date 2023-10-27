@@ -76,7 +76,16 @@ public class BigNumArithmeticTest {
         assertEquals(2, list.getValue());
         list.next();
         assertEquals(1, list.getValue());
-        System.out.println(bigNum.LListToString(list));
+
+        s = "1 2 3";
+        list = bigNum.stringToLList(s);
+        list.moveToStart();
+        assertEquals(3, list.getValue());
+        list.next();
+        assertEquals(2, list.getValue());
+        list.next();
+        assertEquals(1, list.getValue());
+
     }
 
     @Test
@@ -94,6 +103,161 @@ public class BigNumArithmeticTest {
         list.insert(6);
         s = bigNum.LListToString(list);
         assertEquals("916",s);
+
+        list.clear();
+        list.insert(2);
+        list.insert(3);
+        list.insert(5);
+        s = bigNum.LListToString(list);
+        assertEquals("235",s);
     }
 
+    @Test
+    public void addition() {
+        LList list = new LList();
+        LList list2 = new LList();
+        LList result = new LList();
+        String s;
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(99);
+        list2.insert(9);
+
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("108", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(6);
+        list2.insert(50000);
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("50006", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(4);
+        list2.insert(3);
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("7", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(5);
+        list2.insert(7);
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("12", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(5);
+        list2.insert(2);
+        list2.insert(2);
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("27", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(5);
+        list.insert(5);
+        list2.insert(2);
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("57", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(1);
+        list.insert(3);
+        list2.insert(3);
+        list2.insert(1);
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("44", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(6);
+        list.insert(5);
+        list2.insert(4);
+        list2.insert(3);
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("108", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(6);
+        list.insert(5);
+        list.insert(7);
+        list2.insert(4);
+        list2.insert(3);
+        list2.insert(2);
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("1089", s);
+    }
+
+    @Test
+    public void multiplication() {
+        LList list = new LList();
+        LList list2 = new LList();
+        LList result = new LList();
+        String s;
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(99);
+        list2.insert(9);
+
+        result = bigNum.multiply(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("891", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(6);
+        list2.insert(50000);
+        result = bigNum.multiply(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("300000", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(4);
+        list2.insert(3);
+        result = bigNum.multiply(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("12", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(5);
+        list2.insert(7);
+        result = bigNum.multiply(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("35", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+    }
 }
