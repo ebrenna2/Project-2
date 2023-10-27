@@ -30,6 +30,24 @@ public class BigNumArithmetic {
                             i--;
                         }
 
+                        if ("-".equals(token)) {
+                            while (stack.length() > 1 && i < expressions.length && "-".equals(expressions[i])) {
+                                LList tempB = (LList) stack.pop();
+                                LList tempA = (LList) stack.pop();
+                                if (compareSubtraction(tempA, tempB)) {
+                                    LList difference = subtraction(tempA, tempB);
+                                    stack.push(difference);
+                                    i++;
+                                }
+                                else {
+                                    LList difference = subtraction(tempB, tempA);
+                                    stack.push(difference);
+                                    i++;
+                                }
+                            }
+                            i--;
+                        }
+                        
                         else {
                             LList temp = stringToLList(deleteZeroes(token));
                             stack.push(temp);
@@ -138,6 +156,56 @@ public class BigNumArithmetic {
         }
 
         return sumList;
+    }
+
+    public static boolean compareSubtraction(LList a, LList b) {
+        a.moveToStart();
+        b.moveToStart();
+
+        while (a.currPos() < a.length() && b.currPos() < b.length()) {
+            int num1 = (int) a.getValue();
+            int num2 = (int) b.getValue();
+
+            if (num1 > num2) {
+                return true;
+            } else if (num1 < num2) {
+                return false;
+            }
+
+            a.next();
+            b.next();
+        }
+        return a.currPos() < a.length();
+    }
+
+    public static LList subtraction(LList a, LList b) {
+        a = stringToLList(deleteZeroes(LListToString(a)));
+        b = stringToLList(deleteZeroes(LListToString(b)));
+
+        LList result = new LList();
+        int borrow = 0;
+
+        a.moveToStart();
+        b.moveToStart();
+
+        while (a.currPos() < a.length() || b.currPos() < b.length()) {
+            int valA = a.currPos() < a.length() ? (int) a.getValue() : 0;
+            int valB = b.currPos() < b.length() ? (int) b.getValue() : 0;
+
+            int difference = valA - valB - borrow;
+
+            if (difference < 0) {
+                difference += 10;
+                borrow = 1;
+            } else {
+                borrow = 0;
+            }
+            result.append(difference);
+
+            if (a.currPos() < a.length()) a.next();
+            if (b.currPos() < b.length()) b.next();
+        }
+        return result;
     }
 
     public static LList multiply(LList a, LList b) {
