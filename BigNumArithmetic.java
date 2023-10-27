@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 
-//FIX THIS so it takes the * operator into account
 public class BigNumArithmetic {
     public static void main(String[] args) {
         try {
@@ -29,22 +28,7 @@ public class BigNumArithmetic {
                                 i++;
                             }
                             i--;
-                        }
-
-                        if ("*".equals(token)) {
-                            while (stack.length() > 1 && i < expressions.length && "*".equals(expressions[i])) {
-                                LList tempB = (LList) stack.pop();
-                                LList tempA = (LList) stack.pop();
-                                LList multiplied = multiply(tempA, tempB);
-
-                                stack.push(multiplied);
-                                i++;
-                            }
-                            i--;
-                        }
-
-
-                        else {
+                        } else {
                             LList temp = stringToLList(deleteZeroes(token));
                             stack.push(temp);
                         }
@@ -101,13 +85,13 @@ public class BigNumArithmetic {
 
 
     public static String LListToString(LList l) {
-        StringBuilder result = new StringBuilder();
+        String result = "";
         l.moveToStart();
         while (l.currPos() < l.length()) {
-            result.insert(0, l.getValue());
+            result = l.getValue() + result;
             l.next();
         }
-        return result.toString();
+        return result;
     }
 
     public static LList add(LList a, LList b) {
@@ -156,46 +140,8 @@ public class BigNumArithmetic {
         return sumList;
     }
 
-    public static LList multiply(LList a, LList b) {
-        LList result = new LList();
-        LList tempResult;
-
-        b.moveToStart();
-        int shift = 0;
-
-        while (b.currPos() < b.length()) {
-            tempResult = new LList();
-            int carry = 0;
-            int bValue = (int) b.getValue();
-
-            a.moveToStart();
-
-            for (int i = 0; i < shift; i++) {
-                tempResult.append(0);
-            }
-
-            while (a.currPos() < a.length()) {
-                int product = (int) a.getValue() * bValue + carry;
-
-                carry = product / 10;
-                product = product % 10;
-                tempResult.append(product);
-                a.next();
-            }
-
-            if (carry > 0) {
-                tempResult.append(carry);
-            }
-            result = add(result, tempResult);
-            b.next();
-            shift++;
-        }
-        return result;
-    }
-
-    //fix so it deals with mulitplication and subtraction?
     public static boolean lineOperator(String s) {
-        return s != null && (s.contains("+") || s.contains("*"));
+        return s != null && s.contains("+");
     }
 
 }
