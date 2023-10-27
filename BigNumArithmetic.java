@@ -141,6 +141,11 @@ public class BigNumArithmetic {
     }
 
     public static LList multiply(LList a, LList b) {
+        if (isZero(a) || isZero(b)) {
+            LList zeroList = new LList();
+            zeroList.append(0);
+            return zeroList;
+        }
         LList result = new LList();
         LList tempResult;
 
@@ -181,5 +186,17 @@ public class BigNumArithmetic {
     public static boolean lineOperator(String s) {
         return s != null && (s.contains("+") || s.contains("*") || s.contains("-"));
     }
+
+    public static boolean isZero(LList list) {
+        list.moveToStart();
+        while (list.currPos() < list.length()) {
+            if ((int) list.getValue() != 0) {
+                return false;
+            }
+            list.next();
+        }
+        return true;
+    }
+
 
 }
