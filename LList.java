@@ -37,12 +37,29 @@ class LList implements List {
     }
 
     // Remove and return current element
-
+    public Object remove () throws NoSuchElementException {
+        if (curr == tail) // Nothing to remove
+            throw new NoSuchElementException("remove() in LList has current of " + curr + " and size of "
+                    + listSize + " that is not a a valid element");
+        Object it = curr.element();             // Remember value
+        curr.setElement(curr.next().element()); // Pull forward the next element
+        if (curr.next() == tail) tail = curr;   // Removed last, move tail
+        curr.setNext(curr.next().next());       // Point around unneeded link
+        listSize--;                             // Decrement element count
+        return it;                              // Return value
+    }
 
     public void moveToStart() { curr = head.next(); } // Set curr at list start
-
+    public void moveToEnd() { curr = tail; }          // Set curr at list end
 
     // Move curr one step left; no change if now at front
+    public void prev() {
+        if (head.next() == curr) return; // No previous element
+        Link temp = head;
+        // March down list until we find the previous element
+        while (temp.next() != curr) temp = temp.next();
+        curr = temp;
+    }
 
     // Move curr one step right; no change if now at end
     public void next() { if (curr != tail) curr = curr.next(); }
@@ -58,6 +75,19 @@ class LList implements List {
             temp = temp.next();
         return i;
     }
+
+    // Move down list to "pos" position
+    public boolean moveToPos(int pos) {
+        if ((pos < 0) || (pos > listSize)) return false;
+        curr = head.next();
+        for(int i=0; i<pos; i++) curr = curr.next();
+        return true;
+    }
+
+    // Return true if current position is at end of the list
+    public boolean isAtEnd() { return curr == tail; }
+
+    // Return current element value.
     public Object getValue() throws NoSuchElementException {
         if (curr == tail) // No current element
             throw new NoSuchElementException("getvalue() in LList has current of " + curr + " and size of "
@@ -66,5 +96,5 @@ class LList implements List {
     }
 
     // Check if the list is empty
-
+    public boolean isEmpty() { return listSize == 0; }
 }

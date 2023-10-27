@@ -38,7 +38,8 @@ public class BigNumArithmetic {
                                     LList difference = subtraction(tempA, tempB);
                                     stack.push(difference);
                                     i++;
-                                } else {
+                                }
+                                else {
                                     LList difference = subtraction(tempB, tempA);
                                     stack.push(difference);
                                     i++;
@@ -103,14 +104,15 @@ public class BigNumArithmetic {
 
 
 
+    //fix this to not include stringbuilder?
     public static String LListToString(LList l) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         l.moveToStart();
         while (l.currPos() < l.length()) {
-            result = l.getValue() + result;
+            result.insert(0, l.getValue());
             l.next();
         }
-        return result;
+        return result.toString();
     }
 
     public static LList add(LList a, LList b) {
@@ -206,8 +208,46 @@ public class BigNumArithmetic {
         return result;
     }
 
+    public static LList multiply(LList a, LList b) {
+        LList result = new LList();
+        LList tempResult;
+
+        b.moveToStart();
+        int shift = 0;
+
+        while (b.currPos() < b.length()) {
+            tempResult = new LList();
+            int carry = 0;
+            int bValue = (int) b.getValue();
+
+            a.moveToStart();
+
+            for (int i = 0; i < shift; i++) {
+                tempResult.append(0);
+            }
+
+            while (a.currPos() < a.length()) {
+                int product = (int) a.getValue() * bValue + carry;
+
+                carry = product / 10;
+                product = product % 10;
+                tempResult.append(product);
+                a.next();
+            }
+
+            if (carry > 0) {
+                tempResult.append(carry);
+            }
+            result = add(result, tempResult);
+            b.next();
+            shift++;
+        }
+        return result;
+    }
+
+    //fix so it deals with mulitplication and subtraction?
     public static boolean lineOperator(String s) {
-        return s != null && s.contains("+") && s.contains("-");
+        return s != null && (s.contains("+") || s.contains("*") || s.contains("-"));
     }
 
 }
