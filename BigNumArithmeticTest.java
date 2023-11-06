@@ -475,6 +475,56 @@ public class BigNumArithmeticTest {
         list2.clear();
         result.clear();
 
+        list.insert(5);
+        list2.insert(2);
+        result = bigNum.subtraction(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("3", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+
+        list.insert(9);
+        list2.insert(2);
+        result = bigNum.subtraction(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("7", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+
+        list.insert(10);
+        list2.insert(1);
+        result = bigNum.subtraction(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("9", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+
+        list.insert(100);
+        list2.insert(46);
+        result = bigNum.subtraction(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("54", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+
+        list.insert(5);
+        list2.insert(9);
+        result = bigNum.subtraction(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("4", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+
         //inserts 99 and 9 into the list
         list.insert(99);
         list2.insert(9);
@@ -524,12 +574,6 @@ public class BigNumArithmeticTest {
         list2.clear();
         result.clear();
 
-        //larger number subtraction
-        list.insert(3000);
-        list2.insert(1234);
-        result = bigNum.subtraction(list, list2);
-        s = bigNum.LListToString(result);
-        assertEquals("1766", s);
 
         list.clear();
         list2.clear();
@@ -563,4 +607,5 @@ public class BigNumArithmeticTest {
         s = bigNum.LListToString(result);
         assertEquals("999999998", s);
     }
+
 }

@@ -7,6 +7,8 @@ class LList implements List {
     private Link curr;         // Access to current element
     private int listSize;      // Size of list
 
+    // Constructors
+    LList(int size) { this(); }     // Constructor -- Ignore size
     LList() { clear(); }
 
     // Remove all elements
@@ -34,17 +36,13 @@ class LList implements List {
         return true;
     }
 
+    // Remove and return current element
+
+
     public void moveToStart() { curr = head.next(); } // Set curr at list start
-    public void moveToEnd() { curr = tail; }          // Set curr at list end
+
 
     // Move curr one step left; no change if now at front
-    public void prev() {
-        if (head.next() == curr) return; // No previous element
-        Link temp = head;
-        // March down list until we find the previous element
-        while (temp.next() != curr) temp = temp.next();
-        curr = temp;
-    }
 
     // Move curr one step right; no change if now at end
     public void next() { if (curr != tail) curr = curr.next(); }
@@ -60,15 +58,39 @@ class LList implements List {
             temp = temp.next();
         return i;
     }
-
-    // Return true if current position is at end of the list
-    public boolean isAtEnd() { return curr == tail; }
-
-    // Return current element value.
     public Object getValue() throws NoSuchElementException {
         if (curr == tail) // No current element
             throw new NoSuchElementException("getvalue() in LList has current of " + curr + " and size of "
                     + listSize + " that is not a a valid element");
         return curr.element();
+    }
+
+
+
+
+    // Check if the list is empty
+
+    public void setValue(Object newVal) {
+        if (curr == tail) {
+            throw new NoSuchElementException("Can't set value of the tail in the list.");
+        }
+        curr.setElement(newVal);
+    }
+
+    public void prev() {
+        if (curr == head.next()) { // already at start
+            return;
+        }
+        Link temp = head.next();
+        // Find the link before curr
+        while (temp.next() != curr) {
+            temp = temp.next();
+        }
+        // Move curr to the previous element
+        curr = temp;
+    }
+
+    public void moveToEnd() {
+        curr = tail;
     }
 }

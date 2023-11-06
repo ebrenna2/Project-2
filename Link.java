@@ -1,6 +1,7 @@
 class Link {         // Singly linked list node class
     private Object e;  // Value for this node
     private Link n;    // Point to next node in list
+    private Link p;   // Point to previous node in list
 
     // Constructors
     Link(Object it, Link inn) { e = it; n = inn; }
