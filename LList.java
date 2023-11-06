@@ -65,32 +65,4 @@ class LList implements List {
         return curr.element();
     }
 
-
-
-
-    // Check if the list is empty
-
-    public void setValue(Object newVal) {
-        if (curr == tail) {
-            throw new NoSuchElementException("Can't set value of the tail in the list.");
-        }
-        curr.setElement(newVal);
-    }
-
-    public void prev() {
-        if (curr == head.next()) { // already at start
-            return;
-        }
-        Link temp = head.next();
-        // Find the link before curr
-        while (temp.next() != curr) {
-            temp = temp.next();
-        }
-        // Move curr to the previous element
-        curr = temp;
-    }
-
-    public void moveToEnd() {
-        curr = tail;
-    }
 }
