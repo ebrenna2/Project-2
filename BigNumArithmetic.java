@@ -143,6 +143,8 @@ public class BigNumArithmetic {
             result.append(0);
             return result;
         }
+
+        s = deleteZeroes(s);
         //for loop to go through the string
         for (int i = s.length() - 1; i >= 0; i--) {
             char ch = s.charAt(i);
@@ -303,6 +305,8 @@ public class BigNumArithmetic {
             // Increment the shift
             shift++;
         }
+
+        deleteZeroes(LListToString(result));
         return result;
     }
 
