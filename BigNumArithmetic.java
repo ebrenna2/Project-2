@@ -306,7 +306,6 @@ public class BigNumArithmetic {
             shift++;
         }
 
-        deleteZeroes(LListToString(result));
         return result;
     }
 
@@ -347,7 +346,6 @@ public class BigNumArithmetic {
             if (a.currPos() < a.length()) a.next();
             if (b.currPos() < b.length()) b.next();
         }
-
 
         String resultStr = deleteZeroes(LListToString(result));
 
