@@ -241,8 +241,8 @@ public class BigNumArithmeticTest {
         list.clear();
         list2.clear();
         result.clear();
-        list.insert(0020);
-        list2.insert(00037);
+        list.insert(20);
+        list2.insert(37);
         result = bigNum.add(list, list2);
         s = bigNum.LListToString(result);
         assertEquals("57", s);
@@ -250,11 +250,11 @@ public class BigNumArithmeticTest {
         list.clear();
         list2.clear();
         result.clear();
-        list.insert(087);
+        list.insert(07);
         list2.insert(50);
         result = bigNum.add(list, list2);
         s = bigNum.LListToString(result);
-        assertEquals("142", s);
+        assertEquals("57", s);
     }
 
     @Test
@@ -374,7 +374,7 @@ public class BigNumArithmeticTest {
         list.clear();
         list2.clear();
         result.clear();
-        list.insert(012);
+        list.insert(12);
         list2.insert(40);
         result = bigNum.multiply(list, list2);
         s = bigNum.LListToString(result);
@@ -569,19 +569,19 @@ public class BigNumArithmeticTest {
         list2.clear();
         result.clear();
         list.insert(1874);
-        list2.insert(03487);
+        list2.insert(48);
         result = bigNum.subtraction(list, list2);
         s = bigNum.LListToString(result);
-        assertEquals("1613", s);
+        assertEquals("1826", s);
 
         list.clear();
         list2.clear();
         result.clear();
-        list.insert(00947);
-        list2.insert(00005);
+        list.insert(67);
+        list2.insert(5);
         result = bigNum.subtraction(list, list2);
         s = bigNum.LListToString(result);
-        assertEquals("942", s);
+        assertEquals("62", s);
     }
     @Test
     public void testStringToLList_DeleteZeroes() {
