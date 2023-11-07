@@ -183,7 +183,7 @@ public class BigNumArithmetic {
      */
     public static LList add(LList a, LList b) {
         //creates a new linked list for the sum
-        LList sumList = new LList();
+        LList llistSum = new LList();
         //creates a variable for the carry
         int carry = 0;
 
@@ -221,7 +221,7 @@ public class BigNumArithmetic {
 
 
             //appends the sum to the sum list
-            sumList.append(sum);
+            llistSum.append(sum);
 
 
             // Move to the next digit in each list
@@ -231,11 +231,11 @@ public class BigNumArithmetic {
 
         //if the carry is greater than 0, append the carry to the sum list
         if (carry > 0){
-            sumList.append(carry);
+            llistSum.append(carry);
         }
 
         //returns the sum list
-        return sumList;
+        return llistSum;
     }
 
     /**
