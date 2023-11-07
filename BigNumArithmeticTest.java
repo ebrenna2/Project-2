@@ -238,6 +238,23 @@ public class BigNumArithmeticTest {
         s = bigNum.LListToString(result);
         assertEquals("10000", s);
 
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(0020);
+        list2.insert(00037);
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("57", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(087);
+        list2.insert(50);
+        result = bigNum.add(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("142", s);
     }
 
     @Test
@@ -354,7 +371,23 @@ public class BigNumArithmeticTest {
         s = bigNum.LListToString(result);
         assertEquals("0", s);
 
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(012);
+        list2.insert(40);
+        result = bigNum.multiply(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("480", s);
 
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(3180);
+        list2.insert(222);
+        result = bigNum.multiply(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("705960", s);
     }
 
     @Test
@@ -531,6 +564,24 @@ public class BigNumArithmeticTest {
         result = bigNum.subtraction(list, list2);
         s = bigNum.LListToString(result);
         assertEquals("5", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(1874);
+        list2.insert(03487);
+        result = bigNum.subtraction(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("1613", s);
+
+        list.clear();
+        list2.clear();
+        result.clear();
+        list.insert(00947);
+        list2.insert(00005);
+        result = bigNum.subtraction(list, list2);
+        s = bigNum.LListToString(result);
+        assertEquals("942", s);
     }
     @Test
     public void testStringToLList_DeleteZeroes() {
@@ -542,16 +593,19 @@ public class BigNumArithmeticTest {
     @Test
     public void testValidLineOperatorWithPlus() {
         assertTrue(BigNumArithmetic.lineOperator("123 456 +"));
+        assertTrue(BigNumArithmetic.lineOperator("43 6 +"));
     }
 
     @Test
     public void testValidLineOperatorWithMinus() {
         assertTrue(BigNumArithmetic.lineOperator("123 456 -"));
+        assertTrue(BigNumArithmetic.lineOperator("395 111 -"));
     }
 
     @Test
     public void testValidLineOperatorWithMultipleNumbers() {
         assertTrue(BigNumArithmetic.lineOperator("123 456 789 + +"));
+        assertTrue(BigNumArithmetic.lineOperator("15 2 871 677 + + +"));
     }
 
     @Test
