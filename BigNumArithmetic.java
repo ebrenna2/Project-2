@@ -48,11 +48,12 @@ public class BigNumArithmetic {
                                 error = true; // Set the error flag
                                 break; // Stop processing further tokens
                             }
-                            // Process the operator
+                            // process the oeprands
                             LList secondOperand = (LList) stack.pop();
                             LList firstOperand = (LList) stack.pop();
 
                             switch (token) {
+                                //goes through and sees what the operator is, with a switch
                                 case "+":
                                     stack.push(add(firstOperand, secondOperand));
                                     break;
@@ -70,7 +71,7 @@ public class BigNumArithmetic {
                         }
                     }
 
-                    // if no error occurred and there's a single result, print it
+
                     if (!error && stack.length() == 1 && lineOperator(s)) {
                         LList result = (LList) stack.pop();
                         System.out.print(s.replaceAll("\\s+", " ") + " = " + LListToString(result) + "\n");
@@ -144,7 +145,6 @@ public class BigNumArithmetic {
             return result;
         }
 
-        s = deleteZeroes(s);
         //for loop to go through the string
         for (int i = s.length() - 1; i >= 0; i--) {
             char ch = s.charAt(i);
@@ -153,6 +153,8 @@ public class BigNumArithmetic {
                 result.append(ch - '0');
             }
         }
+
+        //return the result
         return result;
     }
 
@@ -160,17 +162,21 @@ public class BigNumArithmetic {
 
     /**
      * LListToString, converts the linked list to a string
-     * @para, list  the linked list to be converted to a string
+     * @param, list  the linked list to be converted to a string
      *           @return the string of the linked list
      *
      */
     public static String LListToString(LList list) {
+        //set the result to blank
         String result = "";
+        //moves to the start of the list
         list.moveToStart();
+        //goes through the list and adds the value to the blank string
         while (list.currPos() < list.length()) {
             result = list.getValue() + result;
             list.next();
         }
+        //returns the result
         return result;
     }
     /**
@@ -311,8 +317,10 @@ public class BigNumArithmetic {
 
     public static LList subtraction(LList a, LList b) {
 
+        //initialize the strings by deleting the zeroes and converting them from llists to strings
         String strA = deleteZeroes(LListToString(a));
         String strB = deleteZeroes(LListToString(b));
+
 
 
         if (strA.length() < strB.length() || (strA.length() == strB.length() && strA.compareTo(strB) < 0)) {
@@ -321,7 +329,7 @@ public class BigNumArithmetic {
             b = temp;
         }
 
-        // Initialize the result list
+
         LList result = new LList();
         int borrow = 0;
 
@@ -353,7 +361,12 @@ public class BigNumArithmetic {
         return stringToLList(resultStr);
     }
 
-
+    /**
+     * lineOperator, checks for if the linked list is zero
+     * @param s the string to be checked
+     *           @return boolean if the line operator is valid or not
+     *
+     */
     public static boolean lineOperator(String s) {
         // Check if there's at least one operator followed by an operand or at the end
         boolean validOperatorPlacement = s.matches(".*\\d+.*([+\\-*/]\\s*\\d+)*[+\\-*/]?$");
