@@ -48,7 +48,7 @@ public class BigNumArithmetic {
                                 error = true; // Set the error flag
                                 break; // Stop processing further tokens
                             }
-                            // process the oeprands
+                            // process the operands
                             LList secondOperand = (LList) stack.pop();
                             LList firstOperand = (LList) stack.pop();
 
@@ -315,49 +315,63 @@ public class BigNumArithmetic {
         return result;
     }
 
+    /**
+     * subtract, where the subtraction of two linked lists is performed
+     *
+     * @param a the first linked list which will be the minuend or subtrahend
+     * @param b the second linked list which will be the minuend or subtrahend
+     * @return the linked list of the subtraction of the two linked lists
+     */
     public static LList subtraction(LList a, LList b) {
 
-        //initialize the strings by deleting the zeroes and converting them from llists to strings
+        //Initialize the strings by deleting the zeroes and converting them from llists to strings
         String strA = deleteZeroes(LListToString(a));
         String strB = deleteZeroes(LListToString(b));
 
-
-
+        //Compare string A and string B to be sure a is greater or equal to b, and then swap string a and b if it's necessary.
         if (strA.length() < strB.length() || (strA.length() == strB.length() && strA.compareTo(strB) < 0)) {
             LList temp = a;
             a = b;
             b = temp;
         }
 
-
+        //Creates a new list for the result
         LList result = new LList();
+        //Creates a new variable for borrowing
         int borrow = 0;
 
+        //Moves to start
         a.moveToStart();
         b.moveToStart();
 
-
+        //While the current position of a is less than the length of the list, or the current position of b is less than the length of the list,
+        //process the digits and calculate the difference, considering the borrowing.
         while (a.currPos() < a.length() || b.currPos() < b.length()) {
             int valA = a.currPos() < a.length() ? (int) a.getValue() : 0;
             int valB = b.currPos() < b.length() ? (int) b.getValue() : 0;
 
             int difference = valA - valB - borrow;
 
+            //Handles the borrowing by checking if it's necessary (difference is less than 0), and adjust the digit, or if it's not necessary (difference is greater or equal to 0)
             if (difference < 0) {
                 difference += 10;
                 borrow = 1;
             } else {
                 borrow = 0;
             }
+            //Append the difference digit to the result
             result.append(difference);
 
+            //Move to the next digit
             if (a.currPos() < a.length()) a.next();
+            //Move to the next digit
             if (b.currPos() < b.length()) b.next();
         }
 
+        //Convert to string and remove any leading zeros
         String resultStr = deleteZeroes(LListToString(result));
 
-
+        //Convert the final result to a LList and return it
         return stringToLList(resultStr);
     }
 
